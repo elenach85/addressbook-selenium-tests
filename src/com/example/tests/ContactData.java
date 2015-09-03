@@ -8,6 +8,7 @@ public class ContactData {
 	public String mobile_tel;
 	public String work_tel;
 	public String email;
+	public String email2;
 	public String birth_day;
 	public String birth_month;
 	public String birth_year;
@@ -16,7 +17,7 @@ public class ContactData {
 	public String phone_2;
 
 	public ContactData(String first_name, String last_name, String address_1, String home_tel, String mobile_tel,
-			String work_tel, String email, String birth_day, String birth_month, String birth_year, String group_name,
+			String work_tel, String email,String email2, String birth_day, String birth_month, String birth_year, String group_name,
 			String address_2, String phone_2) {
 		this.first_name = first_name;
 		this.last_name = last_name;

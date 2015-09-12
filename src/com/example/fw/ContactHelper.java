@@ -1,6 +1,10 @@
 package com.example.fw;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import com.example.tests.ContactData;
@@ -52,7 +56,7 @@ public class ContactHelper extends HelperBase {
 		}
 
 	public void selectContact(int index) {
-	click(By.xpath("//tr[@name='entry'][" + index + "]/td/a/img[@title='Edit']"));
+	click(By.xpath("//tr[@name='entry'][" + (index+1) + "]/td/a/img[@title='Edit']"));
 	}
 
 	public void deleteContact() {
@@ -80,11 +84,35 @@ public class ContactHelper extends HelperBase {
 		
 	}
 
-	public void goToSubmittedGroupPage() {
+	public void goToSubmittedGroupPage() { 
 		click(By.xpath("//*[@id='content']/div/i/a"));
 
 	}
+	
+	public List<ContactData> getContacts() {
+	List<ContactData>contacts=new ArrayList<ContactData>();
+	List<WebElement> rows = findElements();
+	for (WebElement row : rows) {
+		List<WebElement>columns =row.findElements(By.tagName("td"));
+	//for (WebElement column : columns) {
+		ContactData contact=new ContactData();
+		//String lName=lastName.getText();
+		//String title=checkbox.getAttribute("title");
+		//contact.first_name=title.substring("Select (".length(),title.length()-lName.length());
+		contact.last_name=columns.get(1).getText();
+		contact.first_name=columns.get(2).getText();
+		contact.email=columns.get(3).getText();
+		contact.home_tel=columns.get(4).getText();
+		contacts.add(contact);
+	}
 		
+		
+		return contacts;
 	}
 
+	private List<WebElement> findElements() {
+		return driver.findElements(By.name("entry"));
+	}
+		
+	}
 

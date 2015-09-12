@@ -1,23 +1,42 @@
 package com.example.tests;
 
+import static org.testng.Assert.assertEquals;
+
+import java.util.Collections;
+import java.util.List;
+
 import org.testng.annotations.Test;
 
 public class ContactModificationTests extends TestBase{
-	@Test
+	/*@Test
 	public void ModifySomeContact() {
 		 app.getNavigationHelper().openMainPage();
-		 app.getContactHelper().selectContact(1);
+		//save old list
+		List<ContactData>oldContactList=app.getContactHelper().getContacts();
+		//actions
+		 app.getContactHelper().selectContact(0);
 		ContactData contact=new ContactData();
-		 contact.last_name="new super name";
+		 contact.first_name="1109new super fir name";
 		 contact.birth_day="25";
 		 app.getContactHelper().fillContactCreationForm(contact);
 		 app.getContactHelper().submitContactModification();
 		 app.getContactHelper().returnToHomePage();
+		 //save new list
+		List<ContactData>newContactList=app.getContactHelper().getContacts();
+		//compare
+			oldContactList.remove(0);
+			oldContactList.add(contact);
+			Collections.sort(oldContactList);
+			assertEquals(newContactList, oldContactList);
 	}
+	*/
 	@Test
 	public void ModifySomeContactAllFields() {
 		 app.getNavigationHelper().openMainPage();
-		 app.getContactHelper().selectContact(1);
+		//save old list
+			List<ContactData>oldContactList=app.getContactHelper().getContacts();
+			//actions
+		 app.getContactHelper().selectContact(0);
 		ContactData contact=new ContactData();
 		contact.first_name="good first name";
 		contact.last_name=" good last name";
@@ -35,8 +54,15 @@ public class ContactModificationTests extends TestBase{
 		 app.getContactHelper().fillContactCreationForm(contact);
 		 app.getContactHelper().submitContactModification();
 		 app.getContactHelper().returnToHomePage();
+		 //save new list
+			List<ContactData>newContactList=app.getContactHelper().getContacts();
+			//compare
+				oldContactList.remove(0);
+				oldContactList.add(contact);
+				Collections.sort(oldContactList);
+				assertEquals(newContactList, oldContactList);
 	}
-@Test
+/*@Test
 public void ChangeGroupforContact() {
 	 app.getNavigationHelper().openMainPage();
 	 app.getContactHelper().checkContact(1);
@@ -44,4 +70,5 @@ public void ChangeGroupforContact() {
 	 app.getContactHelper().submitGroupChange();
 	 app.getContactHelper().goToSubmittedGroupPage();
 }
+*/
 }

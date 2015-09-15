@@ -36,6 +36,7 @@ public class TestBase {
 	group.header=generateRandomString();
 	group.footer=generateRandomString();
 	list.add(new Object[]{group});
+	
 	}
 	return list.iterator();
 	}

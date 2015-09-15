@@ -46,7 +46,7 @@ public class ContactModificationTests extends TestBase{
 		contact.work_tel="66222222";
 		contact.email="goodtest@gmail.com";
 		contact.email2="goodtest2@mail.ru";
-		contact.birth_day="27";
+		//contact.birth_day=;
 		contact.birth_month="September";
 		contact.birth_year="1975";
 	    contact.address_2="good Address2";

@@ -2,6 +2,7 @@ package com.example.fw;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -69,16 +70,22 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void checkContact(int index) {
-    click(By.xpath("(//input[@type='checkbox'])[" + index + "]"));
+    click(By.xpath("(//input[@type='checkbox'])[" + (index+1) + "]"));
 		
 	}
 
-	  public void selectGroupForChange(int index) {
-      click(By.xpath("(//select[@name='to_group']/option)[" + index + "]"));
+	  public void selectGroupForChange(int index2) {
+      click(By.xpath("(//select[@name='to_group']/option)[" + (index2+1) + "]"));
 				  
 	}
-
 	
+	  
+	  public void selectGroupForContactCreation(int index) {
+		
+	     click(By.xpath("(//select[@name='new_group']/option)[" + (index+1) + "]"));
+					  
+		}
+	 	
 	public void submitGroupChange() {
 	click(By.xpath("//input[@name='add']"));
 		
@@ -113,6 +120,31 @@ public class ContactHelper extends HelperBase {
 	private List<WebElement> findElements() {
 		return driver.findElements(By.name("entry"));
 	}
-		
-	}
 
+	public List<WebElement> getGroupsName() {
+	List<WebElement>groupNames=driver.findElements(By.xpath("//select[@name='to_group']/option"));
+	return groupNames;
+	}
+	public List<WebElement> getGroupsNameInContactCreationForm() {
+		List<WebElement>groupNames=driver.findElements(By.xpath("//select[@name='new_group']/option"));
+		return groupNames;
+		}
+	public String randomGroupSelectionForContactCreation() {
+		List<WebElement> groupNamesList=getGroupsNameInContactCreationForm(); 
+		 Random rnd=new Random();
+		 int index=rnd.nextInt(groupNamesList.size());
+		selectGroupForContactCreation(index);
+		 String groupName;
+		 groupName=groupNamesList.get(index).getText();
+		return groupName;
+	}
+	public String randomChangeGroup(Random rnd, int index) {
+		List<WebElement> groupNamesList=getGroupsName(); 
+		 int index2=rnd.nextInt(groupNamesList.size());
+		 checkContact(index);
+		selectGroupForChange(index2);
+		 String groupName;
+		 groupName=groupNamesList.get(index2).getText();
+		 return groupName;
+}
+}

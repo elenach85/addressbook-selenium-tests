@@ -2,9 +2,12 @@ package com.example.tests;
 import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.Collections;
 import static org.testng.Assert.assertEquals;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 public class ContactCreationTests extends TestBase {
@@ -15,7 +18,10 @@ public void testContactCreationWithValidData(ContactData contact) throws Excepti
 		List<ContactData>oldContactList=app.getContactHelper().getContacts();
 		//actions
 		app.getContactHelper().initContactCreation();
+		app.getContactHelper().randomGroupSelectionForContactCreation();
+		contact.group_name=app.getContactHelper().randomGroupSelectionForContactCreation();
 		app.getContactHelper().fillContactCreationForm(contact);
+		
 	    app.getContactHelper().submitContactCreation();
 		app.getContactHelper().returnToHomePage();
 		//save new list
@@ -27,6 +33,8 @@ public void testContactCreationWithValidData(ContactData contact) throws Excepti
 		Collections.sort(newContactList);
 		assertEquals(newContactList, oldContactList);
 }
+
+	
 }
 /*	public String generateRandomDay(){
 		Random rnd=new Random();

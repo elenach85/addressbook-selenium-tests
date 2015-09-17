@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 
 import com.example.fw.ApplicationManager;
+import com.thoughtworks.selenium.webdriven.commands.GetText;
 
 public class TestBase {
 	protected static ApplicationManager app;
@@ -90,7 +91,7 @@ public class TestBase {
 	@DataProvider
 	public Iterator<Object[]> randomValidContactGenerator() {
 	List<Object[]>contactList=new ArrayList<Object[]>();
-		for (int i = 0; i <5; i++) {
+		for (int i = 0; i <1; i++) {
 	ContactData contact=new ContactData();
 	contact.first_name=generateRandomString();
 	contact.last_name=generateRandomString();
@@ -101,13 +102,12 @@ public class TestBase {
 	contact.address_2=generateRandomString();
 	contact.phone_2=generateRandomString();
 	contact.work_tel=generateRandomString(); 
-	generateRandomData(contact);
-	
 	contactList.add(new Object[]{contact});
 	}
 	return contactList.iterator();
 	}
 
+	
 	private void generateRandomData(ContactData contact) {
 			contact.birth_year=generateRandomYear();
 			Random rnd=new Random();
@@ -156,5 +156,11 @@ public class TestBase {
 			}
 	
 			}
-		}
+		
+	
+	
 }
+
+}
+
+

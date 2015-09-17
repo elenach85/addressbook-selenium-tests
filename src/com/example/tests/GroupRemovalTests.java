@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 public class GroupRemovalTests extends TestBase {
@@ -27,5 +28,15 @@ public void deleteSomeGroup() {
 		 Collections.sort(oldList);
 		 assertEquals(newList, oldList);
 	 }
+
+	protected String randomGroupSelectionForContactCreation() {
+		List<WebElement> groupNamesList=app.getContactHelper().getGroupsNameInContactCreationForm(); 
+		 Random rnd=new Random();
+		 int index=rnd.nextInt(groupNamesList.size());
+		 app.getContactHelper().selectGroupForContactCreation(index);
+		 String groupName;
+		 groupName=groupNamesList.get(index).getText();
+		return groupName;
+	}
 	 }
 

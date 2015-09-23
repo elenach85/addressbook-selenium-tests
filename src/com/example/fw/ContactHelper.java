@@ -21,12 +21,14 @@ public class ContactHelper extends HelperBase {
 	/**
 	 * 
 	 */
-	public void submitContactCreation() {
+	public ContactHelper submitContactCreation() {
 		driver.findElement(By.name("submit")).click();
+		return this;
 	}
 
-	public void initContactCreation() {
+	public ContactHelper initContactCreation() {
 		driver.findElement(By.linkText("add new")).click();
+		return this;
 	}
 
 	/**
@@ -34,66 +36,70 @@ public class ContactHelper extends HelperBase {
 	 * @param testBase TODO
 	 * @param contact TODO
 		 */
-	public void fillContactCreationForm(ContactData contact) {
-		type(By.name("firstname"),contact.first_name);
-		type(By.name("lastname"),contact.last_name);
-	  	type(By.name("address"),contact.address_1);
-		type(By.name("home"),contact.home_tel);
-	  	type(By.name("mobile"),contact.mobile_tel);
-	    type(By.name("work"),contact.work_tel);
-		type(By.name("email"),contact.email);
-		type(By.name("email2"),contact.email2);
-	   	selectByText(By.name("bday"), contact.birth_day);
-	   	selectByText(By.name("bmonth"), contact.birth_month);
-		type(By.name("byear"),contact.birth_year);
-		selectByText(By.name("new_group"),contact.group_name);
-	    type(By.name("address2"),contact.address_2);
-	    type(By.name("phone2"),contact.phone_2);
+	public ContactHelper fillContactCreationForm(ContactData contact) {
+		type(By.name("firstname"),contact.getFirst_name());
+		type(By.name("lastname"),contact.getLast_name());
+	  	type(By.name("address"),contact.getAddress_1());
+		type(By.name("home"),contact.getHome_tel());
+	  	type(By.name("mobile"),contact.getMobile_tel());
+	    type(By.name("work"),contact.getWork_tel());
+		type(By.name("email"),contact.getEmail());
+		type(By.name("email2"),contact.getEmail2());
+		type(By.name("byear"),contact.getBirth_year());
+	   	selectByText(By.name("bmonth"), contact.getBirth_month());
+	   	selectByText(By.name("bday"), contact.getBirth_day());
+		//selectByText(By.name("new_group"),contact.getGroup_name());
+	    type(By.name("address2"),contact.getAddress_2());
+	    type(By.name("phone2"),contact.getPhone_2());
+	    return this;
 	}
 
 	
-	public void returnToHomePage() {
+	public ContactHelper returnToHomePage() {
 		click(By.linkText("home page"));
+		return this;
 		}
 
-	public void selectContact(int index) {
+	public ContactHelper selectContact(int index) {
 	click(By.xpath("//tr[@name='entry'][" + (index+1) + "]/td/a/img[@title='Edit']"));
+	return this;
 	}
 
-	public void deleteContact() {
+	public ContactHelper deleteContact() {
 	click(By.xpath("//input[@value='Delete']"));
+	return this;
 	}
 
-	  public void submitContactModification() {
+	  public ContactHelper submitContactModification() {
 		  click(By.xpath("//input[@value='Update']"));
-		
+		  return this;
 	}
 
-	public void checkContact(int index) {
+	public ContactHelper checkContact(int index) {
     click(By.xpath("(//input[@type='checkbox'])[" + (index+1) + "]"));
-		
+    return this;	
 	}
 
-	  public void selectGroupForChange(int index2) {
+	  public ContactHelper selectGroupForChange(int index2) {
       click(By.xpath("(//select[@name='to_group']/option)[" + (index2+1) + "]"));
-				  
+      return this;			  
 	}
 	
 	  
-	  public void selectGroupForContactCreation(int index) {
+	  public ContactHelper selectGroupForContactCreation(int index) {
 		
 	     click(By.xpath("(//select[@name='new_group']/option)[" + (index+1) + "]"));
-					  
+	     return this;			  
 		}
 	 	
-	public void submitGroupChange() {
+	public ContactHelper submitGroupChange() {
 	click(By.xpath("//input[@name='add']"));
-		
+	return this;	
 	}
 
-	public void goToSubmittedGroupPage() { 
+	public ContactHelper goToSubmittedGroupPage() { 
 		click(By.xpath("//*[@id='content']/div/i/a"));
-
+		return this;
 	}
 	
 	public List<ContactData> getContacts() {
@@ -103,14 +109,15 @@ public class ContactHelper extends HelperBase {
 		List<WebElement>columns =row.findElements(By.tagName("td"));
 	//for (WebElement column : columns) {
 		ContactData contact=new ContactData();
-		//String lName=lastName.getText();
-		//String title=checkbox.getAttribute("title");
-		//contact.first_name=title.substring("Select (".length(),title.length()-lName.length());
-		contact.last_name=columns.get(1).getText();
-		contact.first_name=columns.get(2).getText();
-		contact.email=columns.get(3).getText();
-		contact.home_tel=columns.get(4).getText();
-		contacts.add(contact);
+		String last_name_title=columns.get(1).getText();
+		String first_name_title=columns.get(2).getText();
+		//contact.last_name=columns.get(1).getText();
+		//contact.first_name=columns.get(2).getText();
+		String email=columns.get(3).getText();
+		//contact.email=columns.get(3).getText();
+		String home_tel=columns.get(4).getText();
+		//contact.home_tel=columns.get(4).getText();
+		contacts.add(new ContactData().withFirstname(first_name_title).withLastname(last_name_title).withEmail(email).withHomeTel(home_tel));
 	}
 		
 		
@@ -132,7 +139,7 @@ public class ContactHelper extends HelperBase {
 	public String randomGroupSelectionForContactCreation() {
 		List<WebElement> groupNamesList=getGroupsNameInContactCreationForm(); 
 		 Random rnd=new Random();
-		 int index=rnd.nextInt(groupNamesList.size());
+		 int index=rnd.nextInt(groupNamesList.size()-1);
 		selectGroupForContactCreation(index);
 		 String groupName;
 		 groupName=groupNamesList.get(index).getText();
@@ -147,4 +154,6 @@ public class ContactHelper extends HelperBase {
 		 groupName=groupNamesList.get(index2).getText();
 		 return groupName;
 }
+
+	
 }

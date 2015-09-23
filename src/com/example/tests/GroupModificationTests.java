@@ -19,12 +19,10 @@ public void modifySomeGroup(GroupData group) {
 		 Random rnd=new Random();
 		 int index=rnd.nextInt(oldList.size()-1);
 		 //actions
-		app.getGroupHelper().initGroupModification(index);
-		//GroupData group=new GroupData();
-		 //group.name="super name";
-		app.getGroupHelper().fillGroupForm(group);
-		 app.getGroupHelper().submitGroupModification();
-		 app.getGroupHelper().returnGroupsPage();
+		app.getGroupHelper().initGroupModification(index)
+	      .fillGroupForm(group)
+		 .submitGroupModification()
+		 .returnGroupsPage();
 		//save new state
 		 List<GroupData>newList=app.getGroupHelper().getGroups();
 		 //compare states
@@ -35,13 +33,4 @@ public void modifySomeGroup(GroupData group) {
 		
 	 }
 
-	protected String randomGroupSelectionForContactCreation() {
-		List<WebElement> groupNamesList=app.getContactHelper().getGroupsNameInContactCreationForm(); 
-		 Random rnd=new Random();
-		 int index=rnd.nextInt(groupNamesList.size());
-		 app.getContactHelper().selectGroupForContactCreation(index);
-		 String groupName;
-		 groupName=groupNamesList.get(index).getText();
-		return groupName;
-	}
 }

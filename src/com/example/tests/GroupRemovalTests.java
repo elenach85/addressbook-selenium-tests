@@ -19,8 +19,8 @@ public void deleteSomeGroup() {
 		 Random rnd=new Random();
 		 int index=rnd.nextInt(oldList.size()-1);
 		 //actions
-				 app.getGroupHelper().deleteGroup(index);
-		 		 app.getGroupHelper().returnGroupsPage();
+				 app.getGroupHelper().deleteGroup(index)
+		 		 .returnGroupsPage();
 		 //save new state
 		 List<GroupData> newList=app.getGroupHelper().getGroups();
 		 //compare states

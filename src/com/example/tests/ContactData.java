@@ -1,20 +1,21 @@
 package com.example.tests;
 
 public class ContactData implements Comparable<ContactData> {
-	public String first_name;
-	public String last_name;
-	public String address_1;
-	public String home_tel;
-	public String mobile_tel;
-	public String work_tel;
-	public String email;
-	public String email2;
-	public String birth_day;
-	public String birth_month;
-	public String birth_year;
+	private String first_name;
+	private String last_name;
+	private String address_1;
+	private String home_tel;
+	private String mobile_tel;
+	private String work_tel;
+	private String email;
+	private String email2;
+	String birth_day;
+	String birth_month;
+	String birth_year;
 	public String group_name;
-	public String address_2;
-	public String phone_2;
+	private String address_2;
+	private String phone_2;
+	private String groupname;
 
 	public ContactData(String first_name, String last_name, String address_1, String home_tel, String mobile_tel,
 			String work_tel, String email,String email2, String birth_day, String birth_month, String birth_year, String group_name,
@@ -98,6 +99,110 @@ public class ContactData implements Comparable<ContactData> {
 	@Override
 	public int compareTo(ContactData other) {
 	return this.last_name.toLowerCase().compareTo(other.last_name.toLowerCase());
+	}
+	public ContactData withFirstname(String first_name) {
+		this.first_name = first_name;
+		return this;
+	}
+	public ContactData withLastname(String last_name) {
+		this.last_name = last_name;
+		return this;
+	}
+	public ContactData withEmail(String email) {
+		this.email = email;
+		return this;
+	}
+	public ContactData withEmail2(String email2) {
+		this.email2= email2;
+		return this;
+	}	
+	public ContactData withHomeTel(String home_tel) {
+		this.home_tel = home_tel;
+		return this;
+	}	
+	public ContactData withAddress1(String address_1) {
+		address_1 = address_1;
+		return this;
+	}
+	public ContactData withPhone2(String phone_2) {
+		this.phone_2 = phone_2;
+		return this;
+	}
+	public ContactData withWorktel(String worktel) {
+		work_tel = worktel;
+		return this;
+	}
+	public ContactData withBirthYear(String birthyear) {
+		birth_year = birthyear;
+		return this;
+	}
+	public ContactData withBirthMonth(String birthmonth) {
+		birth_month = birthmonth;
+		return this;
+	}
+	public ContactData withBirthDay(String birthday) {
+		birth_day = birthday;
+		return this;
+	}
+	public ContactData withGroupName(String groupname) {
+		group_name = groupname;
+		return this;
+	}
+	
+	public String getFirst_name() {
+		return first_name;
+	}
+	
+	public String getLast_name() {
+		return last_name;
+	}
+	public String getAddress_1() {
+		return address_1;
+	}
+	
+	public String getHome_tel() {
+		return home_tel;
+	}
+	
+	public String getMobile_tel() {
+		return mobile_tel;
+	}
+	
+	public String getWork_tel() {
+		return work_tel;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public String getEmail2() {
+		return email2;
+	}
+	
+	public String getBirth_day() {
+		return birth_day;
+	}
+	public String getBirth_month() {
+		return birth_month;
+	}
+
+	public String getBirth_year() {
+		return birth_year;
+	}
+	public void setBirth_year(String birth_year) {
+		this.birth_year = birth_year;
+	}
+	public String getGroup_name() {
+		return group_name;
+	}
+	
+	public String getAddress_2() {
+		return address_2;
+	}
+	
+	public String getPhone_2() {
+		return phone_2;
 	}
 	
 	

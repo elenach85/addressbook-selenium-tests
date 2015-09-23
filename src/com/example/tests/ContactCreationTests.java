@@ -18,8 +18,9 @@ public void testContactCreationWithValidData(ContactData contact) throws Excepti
 		List<ContactData>oldContactList=app.getContactHelper().getContacts();
 		//actions
 		app.getContactHelper().initContactCreation();
-		app.getContactHelper().randomGroupSelectionForContactCreation();
-		contact.group_name=app.getContactHelper().randomGroupSelectionForContactCreation();
+		//.randomGroupSelectionForContactCreation();
+		//contact.group_name=app.getContactHelper().randomGroupSelectionForContactCreation();
+		//generateRandomDate(contact);
 		app.getContactHelper().fillContactCreationForm(contact);
 		
 	    app.getContactHelper().submitContactCreation();

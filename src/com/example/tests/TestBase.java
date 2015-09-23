@@ -11,8 +11,9 @@ import org.testng.annotations.DataProvider;
 
 import com.example.fw.ApplicationManager;
 import com.thoughtworks.selenium.webdriven.commands.GetText;
-
+import java.util.Calendar;
 public class TestBase {
+	private static final String year = null;
 	protected static ApplicationManager app;
 	
 
@@ -32,10 +33,15 @@ public class TestBase {
 	public Iterator<Object[]> randomValidGroupGenerator(){
 	List<Object[]>list=new ArrayList<Object[]>();
 		for (int i = 0; i <5; i++) {
-	GroupData group=new GroupData();
+	/*GroupData group=new GroupData();
 	group.name=generateRandomString();
 	group.header=generateRandomString();
 	group.footer=generateRandomString();
+	*/
+	GroupData group=new GroupData()
+	.withName(generateRandomString())
+	.withHeader(generateRandomString())
+	.withFooter(generateRandomString());
 	list.add(new Object[]{group});
 	
 	}
@@ -60,8 +66,8 @@ public class TestBase {
 			return year;
 			}	
 	}
-
-	public String generateRandomMonth() {
+	
+public String generateRandomMonth() {
 		Random rnd=new Random(); 
 		if (rnd.nextInt(7)==0) {
 			return "-";	
@@ -87,28 +93,47 @@ public class TestBase {
 			return month;
 			}	
 	}
-
+protected String generateRandomDay(){
+	String day;
+	Random rnd=new Random(); 
+	  Calendar cal = Calendar.getInstance();
+	  int dayInt = cal.get(Calendar.DATE);
+	
+	  if (rnd.nextInt(7)==0) {
+		  return day="-";		
+	} else {
+		 dayInt=rnd.nextInt(30);
+		  day=String.valueOf(dayInt);
+return day;
+	}		
+		}
+	 
 	@DataProvider
 	public Iterator<Object[]> randomValidContactGenerator() {
 	List<Object[]>contactList=new ArrayList<Object[]>();
-		for (int i = 0; i <1; i++) {
-	ContactData contact=new ContactData();
-	contact.first_name=generateRandomString();
-	contact.last_name=generateRandomString();
-	contact.email=generateRandomString();
-	contact.email2=generateRandomString();
-	contact.home_tel=generateRandomString();
-	contact.address_1=generateRandomString();
-	contact.address_2=generateRandomString();
-	contact.phone_2=generateRandomString();
-	contact.work_tel=generateRandomString(); 
+		for (int i = 0; i <3; i++) {
+			ContactData contact=new ContactData()
+		.withFirstname(generateRandomString())
+		.withLastname(generateRandomString())
+		.withEmail(generateRandomString())
+		.withEmail2(generateRandomString())
+		.withHomeTel(generateRandomString())
+		.withAddress1(generateRandomString())
+		.withPhone2(generateRandomString())
+		.withWorktel(generateRandomString())
+		.withBirthYear(generateRandomYear())
+		.withBirthMonth(generateRandomMonth())
+		.withBirthDay(generateRandomDay())
+		.withGroupName(app.getContactHelper().randomGroupSelectionForContactCreation());
 	contactList.add(new Object[]{contact});
 	}
 	return contactList.iterator();
 	}
 
 	
-	private void generateRandomData(ContactData contact) {
+
+	/*protected String generateRandomDate(ContactData contact) {
+		
 			contact.birth_year=generateRandomYear();
 			Random rnd=new Random();
 			String year;
@@ -154,13 +179,14 @@ public class TestBase {
 			}
 	
 			}
-	
 			}
+			return day;
 		
 	
 	
 }
-
+*/
+	
 }
 
-
+	

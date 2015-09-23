@@ -21,6 +21,7 @@ public class ContactModificationTests extends TestBase{
 			
 			//actions
 		 app.getContactHelper().selectContact(index);	
+		 //generateRandomDate(contact);
 		 app.getContactHelper().fillContactCreationForm(contact);
 		 app.getContactHelper().submitContactModification();
 		 app.getContactHelper().returnToHomePage();

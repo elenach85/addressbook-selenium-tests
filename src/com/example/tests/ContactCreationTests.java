@@ -5,77 +5,44 @@ import java.util.List;
 import java.util.Random;
 import java.util.Collections;
 import static org.testng.Assert.assertEquals;
-
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matcher.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
+import com.example.fw.ContactHelper;
+import com.example.utils.ListOf;
+import com.example.utils.SortedListOf;
+
 public class ContactCreationTests extends TestBase {
-	@Test(dataProvider="randomValidContactGenerator")
+	@Test(dataProvider="randomValidContactGeneratorWithGroupName")
 public void testContactCreationWithValidData(ContactData contact) throws Exception{ 
-		app.getNavigationHelper().openMainPage();	
+		app.navigateTo().mainPage();	
 		//save old list
-		List<ContactData>oldContactList=app.getContactHelper().getContacts();
+		SortedListOf<ContactData>oldContactList=app.getContactHelper().getContacts();
+	//List<ContactData>oldContactList=app.getContactHelper().getContacts();
+//ListOf<ContactData>oldContactList=app.getContactHelper().getContacts();
 		//actions
-		app.getContactHelper().initContactCreation();
-		//.randomGroupSelectionForContactCreation();
-		//contact.group_name=app.getContactHelper().randomGroupSelectionForContactCreation();
-		//generateRandomDate(contact);
-		app.getContactHelper().fillContactCreationForm(contact);
-		
-	    app.getContactHelper().submitContactCreation();
-		app.getContactHelper().returnToHomePage();
+	app.getContactHelper().createContact(contact);	
+	//app.navigateTo().mainPage();
 		//save new list
-		List<ContactData>newContactList=app.getContactHelper().getContacts();
+	  SortedListOf<ContactData>newContactList=app.getContactHelper().getContacts();
+	// List<ContactData>newContactList=app.getContactHelper().getContacts();
+	//ListOf<ContactData>newContactList=app.getContactHelper().getContacts();
 	  //compare
 		//assertEquals(newContactList.size(), oldContactList.size()+1);
-		oldContactList.add(contact);
-		Collections.sort(oldContactList);
-		Collections.sort(newContactList);
-		assertEquals(newContactList, oldContactList);
+	//oldContactList.add(contact);
+		//Collections.sort(oldContactList);
+		//Collections.sort(newContactList);
+		//assertEquals(newContactList, oldContactList);
+		assertThat(newContactList,equalTo(oldContactList.withAdded(contact)));
 }
 
 	
 }
-/*	public String generateRandomDay(){
-		Random rnd=new Random();
-		String day;
-		String year;
-		year=generateRandomYear();
-		int yearInt;
-		yearInt=Integer.valueOf(year);
-		String month;
-		 if (year=="") {
-				month="-";
-				} else {
-					month=generateRandomMonth();
-					}
-		if (month=="-"|year.equals("")) {
-			return "-";	
-		} else {if (month=="April"|month=="June"|month=="September"|month=="November") {
-			day=String.valueOf(1+rnd.nextInt(29));	
-		} else {if (month!="February") {
-			day=String.valueOf(1+rnd.nextInt(30));	
-		} else 
-			
-		{if (yearInt%4==0 && yearInt%100>0) {
-			day=String.valueOf(1+rnd.nextInt(28));
-		} else {if (yearInt%100==0 && yearInt%400==0) {
-			day=String.valueOf(1+rnd.nextInt(28));
-		} else {
-			day=String.valueOf(1+rnd.nextInt(27));
-		}
 
-		}
-
-		}
-
-		}
-
-		}
-		return day;		
-	}
-*/
 
 		
 	

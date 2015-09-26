@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -13,7 +15,7 @@ import com.example.fw.ApplicationManager;
 import com.thoughtworks.selenium.webdriven.commands.GetText;
 import java.util.Calendar;
 public class TestBase {
-	private static final String year = null;
+	//private static final String year = null;
 	protected static ApplicationManager app;
 	
 
@@ -32,12 +34,7 @@ public class TestBase {
 	@DataProvider
 	public Iterator<Object[]> randomValidGroupGenerator(){
 	List<Object[]>list=new ArrayList<Object[]>();
-		for (int i = 0; i <5; i++) {
-	/*GroupData group=new GroupData();
-	group.name=generateRandomString();
-	group.header=generateRandomString();
-	group.footer=generateRandomString();
-	*/
+		for (int i = 0; i <1; i++) {
 	GroupData group=new GroupData()
 	.withName(generateRandomString())
 	.withHeader(generateRandomString())
@@ -109,9 +106,12 @@ return day;
 		}
 	 
 	@DataProvider
-	public Iterator<Object[]> randomValidContactGenerator() {
+	public Iterator<Object[]> randomValidContactGeneratorWithGroupName() {
+app.navigateTo().mainPage();
+app.getContactHelper().initContactCreation();
+app.getContactHelper().getGroupsNameList();
 	List<Object[]>contactList=new ArrayList<Object[]>();
-		for (int i = 0; i <3; i++) {
+		for (int i = 0; i <1; i++) {
 			ContactData contact=new ContactData()
 		.withFirstname(generateRandomString())
 		.withLastname(generateRandomString())
@@ -124,68 +124,34 @@ return day;
 		.withBirthYear(generateRandomYear())
 		.withBirthMonth(generateRandomMonth())
 		.withBirthDay(generateRandomDay())
-		.withGroupName(app.getContactHelper().randomGroupSelectionForContactCreation());
+		.withGroupName(app.getContactHelper().randomGroupSelection());
+	contactList.add(new Object[]{contact});
+	}
+	return contactList.iterator();
+	}
+
+	@DataProvider
+	public Iterator<Object[]> randomValidContactGeneratorWithoutGroupName() {
+	List<Object[]>contactList=new ArrayList<Object[]>();
+		for (int i = 0; i <1; i++) {
+			ContactData contact=new ContactData()
+		.withFirstname(generateRandomString())
+		.withLastname(generateRandomString())
+		.withEmail(generateRandomString())
+		.withEmail2(generateRandomString())
+		.withHomeTel(generateRandomString())
+		.withAddress1(generateRandomString())
+		.withPhone2(generateRandomString())
+		.withWorktel(generateRandomString())
+		.withBirthYear(generateRandomYear())
+		.withBirthMonth(generateRandomMonth())
+		.withBirthDay(generateRandomDay());
 	contactList.add(new Object[]{contact});
 	}
 	return contactList.iterator();
 	}
 
 	
-
-	/*protected String generateRandomDate(ContactData contact) {
-		
-			contact.birth_year=generateRandomYear();
-			Random rnd=new Random();
-			String year;
-			String month;
-			month=contact.birth_month;
-			 year=contact.birth_year;
-			 if (year=="") {
-			month="-";
-			} else {
-				contact.birth_month=generateRandomMonth();
-				}
-	
-			String day;
-			//contact.birth_day=generateRandomDay();
-			if (month=="-"|year==""){
-			day="-";
-			contact.birth_day=day;
-	} 
-			else 
-			{
-				if (month=="April"|month=="June"|month=="September"|month=="November") {
-				day=String.valueOf(1+rnd.nextInt(29));
-				contact.birth_day=day;
-			} else {if (month!="February") {
-				day=String.valueOf(1+rnd.nextInt(30));	
-				contact.birth_day=day;
-			} else	
-			{int yearInt;
-			yearInt=Integer.valueOf(year);
-				if (yearInt%4==0 && yearInt%100>0) {
-				day=String.valueOf(1+rnd.nextInt(28));
-				contact.birth_day=day;
-			} else {if (yearInt%100==0 && yearInt%400==0) {
-				day=String.valueOf(1+rnd.nextInt(28));
-				contact.birth_day=day;
-			} else {
-				day=String.valueOf(1+rnd.nextInt(27));
-				contact.birth_day=day;
-			}
-	
-			}
-	
-			}
-	
-			}
-			}
-			return day;
-		
-	
-	
-}
-*/
 	
 }
 

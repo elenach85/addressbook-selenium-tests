@@ -1,3 +1,4 @@
+
 package com.example.tests;
 
 import static org.testng.Assert.assertEquals;
@@ -9,51 +10,34 @@ import java.util.Random;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
+import com.example.fw.ContactHelper;
+import com.example.utils.SortedListOf;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matcher.*;
 public class ContactModificationTests extends TestBase{
 	
-@Test(dataProvider="randomValidContactGenerator")
+@Test(dataProvider="randomValidContactGeneratorWithoutGroupName")
 	public void ModifySomeContactAllFields(ContactData contact) {
-		 app.getNavigationHelper().openMainPage();
 		//save old list
-			List<ContactData>oldContactList=app.getContactHelper().getContacts();
+	app.navigateTo().mainPage();	
+	        SortedListOf<ContactData>oldContactList=app.getContactHelper().getContacts();
 			 Random rnd=new Random();
-			 int index=rnd.nextInt(oldContactList.size()-1);
-			
+			int index=rnd.nextInt(oldContactList.size()-1);
 			//actions
-		 app.getContactHelper().selectContact(index);	
-		 //generateRandomDate(contact);
-		 app.getContactHelper().fillContactCreationForm(contact);
-		 app.getContactHelper().submitContactModification();
-		 app.getContactHelper().returnToHomePage();
-		 //change group for this contact
-		 app.getContactHelper().randomChangeGroup(rnd, index);
-		 contact.group_name=app.getContactHelper().randomChangeGroup(rnd, index);
-		 app.getContactHelper().submitGroupChange();
-		 app.getContactHelper().goToSubmittedGroupPage();
-		 app.getNavigationHelper().openMainPage();
+			app.getContactHelper().modifyContact(index,contact);
 		 //save new list
-			List<ContactData>newContactList=app.getContactHelper().getContacts();
+			SortedListOf<ContactData>newContactList=app.getContactHelper().getContacts();
 			//compare
-				oldContactList.remove(index);
-				oldContactList.add(contact);
-				Collections.sort(oldContactList);
-				Collections.sort(newContactList);
-				assertEquals(newContactList, oldContactList);
+				//oldContactList.remove(index);
+				//oldContactList.add(contact);
+				//Collections.sort(oldContactList);
+				//Collections.sort(newContactList);
+				//assertEquals(newContactList, oldContactList);
+			assertThat(newContactList, equalTo(oldContactList.without(index).withAdded(contact)));
 	}
 
-
 }
 
 
-/*@Test
-public void ChangeGroupforContact() {
-	 app.getNavigationHelper().openMainPage();
-	 List<WebElement> groupNamesList=app.getContactHelper().getGroupsName(); 
-	 Random rnd=new Random();
-	 int index=rnd.nextInt(groupNamesList.size()-1);
-	 app.getContactHelper().checkContact(1);
-	 app.getContactHelper().selectGroupForChange(index);
-	 app.getContactHelper().submitGroupChange();
-	 app.getContactHelper().goToSubmittedGroupPage();
-}
-*/
+

@@ -4,45 +4,39 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
 import static org.testng.Assert.assertEquals;
-
+import static org.junit.Assert.assertThat;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import  org.testng.annotations.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matcher.*;
 
+import com.example.utils.ListOf;
+import com.example.utils.SortedListOf;
 import com.google.common.collect.Lists;
 public class GroupCreationTests extends TestBase {
 
   @Test(dataProvider="randomValidGroupGenerator")
   public void testGroupCreationWithValidData(GroupData group) throws Exception {
-	app.getNavigationHelper().openMainPage();
-    app.getNavigationHelper().gotoGroupsPage();
+
     // save old state
-    List<GroupData> oldList=app.getGroupHelper().getGroups();
+	  SortedListOf<GroupData> oldList=app.getGroupHelper().getGroups();
+	//ListOf<GroupData> oldList=app.getGroupHelper().getGroups();
        //actions
-    app.getGroupHelper()
-    .initGroupCreation()
-  	.fillGroupForm(group)
-    .submitGroupCreation()
-    .returnGroupsPage();
+    app.getGroupHelper().createGroup(group);
+  
     //save new state
-    List<GroupData> newList=app.getGroupHelper().getGroups();
+    SortedListOf<GroupData> newList=app.getGroupHelper().getGroups();
+   // ListOf<GroupData> newList=app.getGroupHelper().getGroups();
     //compare states
-oldList.add(group);
-Collections.sort(oldList);
-assertEquals(newList, oldList);
+//oldList.add(group);
+//Collections.sort(oldList);
+//assertEquals(newList, oldList);
+assertThat(newList,equalTo(oldList.withAdded(group)));
+//assertThat(newList, equalTo);
   }
 
-protected String randomGroupSelectionForContactCreation() {
-	List<WebElement> groupNamesList=app.getContactHelper().getGroupsNameInContactCreationForm(); 
-	 Random rnd=new Random();
-	 int index=rnd.nextInt(groupNamesList.size());
-	 app.getContactHelper().selectGroupForContactCreation(index);
-	 String groupName;
-	 groupName=groupNamesList.get(index).getText();
-	return groupName;
-}
   
  
 }

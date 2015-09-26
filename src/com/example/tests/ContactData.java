@@ -16,10 +16,11 @@ public class ContactData implements Comparable<ContactData> {
 	private String address_2;
 	private String phone_2;
 	private String groupname;
+	private String id;
 
 	public ContactData(String first_name, String last_name, String address_1, String home_tel, String mobile_tel,
 			String work_tel, String email,String email2, String birth_day, String birth_month, String birth_year, String group_name,
-			String address_2, String phone_2) {
+			String address_2, String phone_2,String id) {
 		this.first_name = first_name;
 		this.last_name=last_name;
 		this.address_1 = address_1;
@@ -33,6 +34,7 @@ public class ContactData implements Comparable<ContactData> {
 		this.group_name = group_name;
 		this.address_2 = address_2;
 		this.phone_2 = phone_2;
+		this.id = id;
 	}
 	public ContactData(){
 		
@@ -41,12 +43,12 @@ public class ContactData implements Comparable<ContactData> {
 	
 	
 	
-//	@Override
-	//public String toString() {
-		//return "ContactData [first_name=" + first_name + ", last_name=" + last_name + ", home_tel=" + home_tel
-			//	+ ", email=" + email + "]";
-	//}
-	
+/*	@Override
+	public String toString() {
+		return "ContactData [first_name=" + first_name + ", last_name=" + last_name + ", home_tel=" + home_tel
+				+ ", email=" + email + "]";
+	}
+	*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,6 +67,7 @@ public class ContactData implements Comparable<ContactData> {
 				+ ", birth_year=" + birth_year + ", group_name=" + group_name + ", address_2=" + address_2
 				+ ", phone_2=" + phone_2 + "]";
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -96,9 +99,13 @@ public class ContactData implements Comparable<ContactData> {
 			return false;
 		return true;
 	}
+	
 	@Override
 	public int compareTo(ContactData other) {
-	return this.last_name.toLowerCase().compareTo(other.last_name.toLowerCase());
+		if (this.id == null) return 1;
+		if (other.id == null) return -1;
+		return this.id.compareTo(other.id);
+	//return this.last_name.toLowerCase().compareTo(other.last_name.toLowerCase());
 	}
 	public ContactData withFirstname(String first_name) {
 		this.first_name = first_name;
@@ -148,7 +155,11 @@ public class ContactData implements Comparable<ContactData> {
 		group_name = groupname;
 		return this;
 	}
-	
+	public ContactData withId(String id) {
+		id = id;
+		return this;
+	}
+
 	public String getFirst_name() {
 		return first_name;
 	}

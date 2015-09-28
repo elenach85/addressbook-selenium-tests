@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByCssSelector;
+import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -41,13 +43,16 @@ public class ContactHelper extends HelperBase {
 		List<WebElement> rows = findElements();
 		for (WebElement row : rows) {
 			List<WebElement>columns =row.findElements(By.tagName("td"));
+		   // List<WebElement> ids=row.findElements(By.xpath("//td//input[@value]"));
 			ContactData contact=new ContactData();
 			String last_name_title=columns.get(1).getText();
 			String first_name_title=columns.get(2).getText();
 			String email=columns.get(3).getText();
 			String home_tel=columns.get(4).getText();
-			String id=row.getAttribute("id");
-			cachedContacts.add(new ContactData().withFirstname(first_name_title).withLastname(last_name_title).withEmail(email).withHomeTel(home_tel).withId(id));
+			//String id=columns.get(0).getCssValue("table[id=maintable] input[id]");
+			//String cl=columns.get(0).getAttribute("class");
+			//WebElement Id = columns.get(0).findElement(By.xpath("//td//input[@value]"));
+		cachedContacts.add(new ContactData().withFirstname(first_name_title).withLastname(last_name_title).withEmail(email).withHomeTel(home_tel));
 		}
 		}
 
@@ -192,9 +197,10 @@ public class ContactHelper extends HelperBase {
 		}
 			  
 			  
-		
-		
-		
+	public WebElement selectId(int index)	{
+	WebElement id = driver.findElement(By.xpath("(//input[@id])[index+1]"));
+	return id;
+	}	
 		
 
 }

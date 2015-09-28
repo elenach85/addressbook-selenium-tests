@@ -34,7 +34,12 @@ public class ContactModificationTests extends TestBase{
 				//Collections.sort(oldContactList);
 				//Collections.sort(newContactList);
 				//assertEquals(newContactList, oldContactList);
+			System.out.println(oldContactList);
+			System.out.println(newContactList);
+			System.out.println(oldContactList.without(index));
+			System.out.println(oldContactList.without(index).withAdded(contact));
 			assertThat(newContactList, equalTo(oldContactList.without(index).withAdded(contact)));
+			
 	}
 
 }

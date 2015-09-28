@@ -50,9 +50,11 @@ public class ContactHelper extends HelperBase {
 			String email=columns.get(3).getText();
 			String home_tel=columns.get(4).getText();
 			//String id=columns.get(0).getCssValue("table[id=maintable] input[id]");
-			//String cl=columns.get(0).getAttribute("class");
+			String id=columns.get(0).findElement(By.xpath(".//input[@value]")).getAttribute("value");
+			System.out.println(id);
 			//WebElement Id = columns.get(0).findElement(By.xpath("//td//input[@value]"));
-		cachedContacts.add(new ContactData().withFirstname(first_name_title).withLastname(last_name_title).withEmail(email).withHomeTel(home_tel));
+	cachedContacts.add(new ContactData().withFirstname(first_name_title).withLastname(last_name_title).withEmail(email).withHomeTel(home_tel).withId(id));
+
 		}
 		}
 
@@ -119,6 +121,7 @@ public class ContactHelper extends HelperBase {
 	   	selectByText(By.name("bday"), contact.getBirth_day());
 	    type(By.name("address2"),contact.getAddress_2());
 	    type(By.name("phone2"),contact.getPhone_2());
+	    contact.getId();
 	    return this;
 	}
 	
